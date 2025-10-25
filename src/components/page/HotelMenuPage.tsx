@@ -20,11 +20,10 @@ export default function HotelMenuPage({ hotel }: HotelMenuPageProps) {
             <main className="flex-1">
                 <section className="relative h-[30vh] w-full">
                     <Image
-                        src={hotel.image}
+                        src={hotel.image_url}
                         alt={hotel.name}
                         fill
                         className="object-cover"
-                        data-ai-hint={hotel['data-ai-hint']}
                     />
                     <div className="absolute inset-0 bg-black/60" />
                     <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
@@ -33,7 +32,7 @@ export default function HotelMenuPage({ hotel }: HotelMenuPageProps) {
                     </div>
                 </section>
                 <div className="container mx-auto px-4 py-8 md:py-12">
-                   <MenuSection menu={hotel.menu} />
+                   <MenuSection menu={hotel.hotel_menus.flatMap(menu => menu.menu_items)} />
                 </div>
             </main>
             <CartSheet open={isCartOpen} onOpenChange={setIsCartOpen} />

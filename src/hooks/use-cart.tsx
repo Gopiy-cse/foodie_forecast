@@ -8,10 +8,9 @@ export interface MenuItem {
   name: string;
   price: number;
   rating: number;
-  image: string | StaticImageData;
+  image_url: string;
   cuisine: string;
   category: string;
-  'data-ai-hint'?: string;
 }
 
 export interface CartItem extends MenuItem {

@@ -30,8 +30,7 @@ const formSchema = z.object({
   price: z.coerce.number().min(0, 'Price must be a positive number.'),
   category: z.string().min(1, 'Please select a category.'),
   rating: z.coerce.number().min(0).max(5),
-  image: z.string().url(),
-  'data-ai-hint': z.string().optional(),
+  image_url: z.string().url(),
 });
 
 interface FoodItemFormProps {
@@ -51,8 +50,7 @@ export default function FoodItemForm({
       price: itemToEdit?.price || 0,
       category: itemToEdit?.category || '',
       rating: itemToEdit?.rating || 4.5,
-      image: itemToEdit?.image || 'https://placehold.co/600x400.png',
-      'data-ai-hint': itemToEdit?.['data-ai-hint'] || '',
+      image_url: itemToEdit?.image_url || 'https://placehold.co/600x400.png',
     },
   });
 

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   Table,
@@ -23,16 +23,26 @@ import {
   Trash2,
   Home,
 } from 'lucide-react';
-import { menuItems as initialMenuItems } from '@/lib/data';
+// import { menuItems as initialMenuItems } from '@/lib/data';
 import type { MenuItem } from '@/hooks/use-cart';
 import FoodItemForm from '@/components/admin/FoodItemForm';
 import { useToast } from '@/hooks/use-toast';
+import {addMenuItems, getmenuItems, updateMenuItems} from "@/actions/admin";
 
 export default function AdminPage() {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>(initialMenuItems);
+  const [menuItems, setMenuItems] = useState<MenuItem[] | null>(null);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const { toast } = useToast();
+
+  useEffect(() => {
+    fetchMenuItems();
+    }, []);
+
+  const fetchMenuItems = async () => {
+      const menuItems = await getmenuItems();
+      setMenuItems(menuItems);
+    };
 
   const handleEdit = (item: MenuItem) => {
     setEditingItem(item);
@@ -49,23 +59,31 @@ export default function AdminPage() {
     }
   };
 
-  const handleFormSubmit = (item: MenuItem) => {
+  const handleFormSubmit = async(item: MenuItem) => {
     if (editingItem) {
       // Update item
-      setMenuItems((prev) =>
-        prev.map((i) => (i.id === item.id ? item : i))
-      );
+      const error = await updateMenuItems([item]);
+      if (error) {
+        console.error('Error updating menu item:', error);
+        return;
+      }
       toast({
         title: 'Success',
         description: 'Menu item updated.',
       });
+      await fetchMenuItems();
     } else {
       // Add new item
-      setMenuItems((prev) => [...prev, { ...item, id: Date.now().toString() }]);
+      const error = await addMenuItems([item]);
+      if (error) {
+        console.error('Error adding new menu item:', error);
+        return;
+      }
       toast({
         title: 'Success',
         description: 'New menu item added.',
       });
+      await fetchMenuItems();
     }
     setEditingItem(null);
     setIsDialogOpen(false);
@@ -124,7 +142,7 @@ export default function AdminPage() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {menuItems.map((item) => (
+            {menuItems && menuItems.map((item) => (
               <TableRow key={item.id}>
                 <TableCell className="font-medium">{item.name}</TableCell>
                 <TableCell>{item.cuisine}</TableCell>

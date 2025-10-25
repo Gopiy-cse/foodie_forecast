@@ -15,12 +15,11 @@ export default function HotelCard({ hotel }: HotelCardProps) {
         <CardHeader className="p-0">
             <div className="aspect-video overflow-hidden">
             <Image
-                src={hotel.image}
+                src={hotel.image_url}
                 alt={hotel.name}
                 width={600}
                 height={400}
                 className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
-                data-ai-hint={hotel['data-ai-hint']}
             />
             </div>
         </CardHeader>

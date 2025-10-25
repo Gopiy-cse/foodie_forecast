@@ -4,8 +4,8 @@ import { useState, useMemo, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Input } from '@/components/ui/input';
 import { Search, Building, Utensils, Pizza } from 'lucide-react';
-import { hotels } from '@/lib/data';
 import type { Hotel } from '@/lib/data';
+import { getHotels } from '@/actions/hotels';
 
 interface HeroProps {
   searchTerm: string;
@@ -23,13 +23,23 @@ export default function Hero({ searchTerm, onSearchTermChange }: HeroProps) {
   const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false);
   const searchContainerRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const [hotels, setHotels] = useState<Hotel[]>([]);
+
+  useEffect(() => {
+    fetchHotels();
+  },[]);
+
+  const fetchHotels = async () => {
+    const hotels = await getHotels();
+    setHotels(hotels);
+  };
 
   const { allCuisines, allDishes } = useMemo(() => {
     const cuisines = new Set<string>();
     const dishes: { name: string; hotelName: string; hotelId: string }[] = [];
     hotels.forEach(hotel => {
       hotel.cuisine.split(',').forEach(c => cuisines.add(c.trim()));
-      hotel.menu.forEach(item => {
+      hotel.hotel_menus.flatMap(menu => menu.menu_items).forEach(item => {
         dishes.push({ name: item.name, hotelName: hotel.name, hotelId: hotel.id });
       });
     });

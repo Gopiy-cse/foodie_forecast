@@ -29,12 +29,11 @@ export default function MenuItemCard({ item }: MenuItemCardProps) {
       <CardHeader className="p-0">
         <div className="aspect-video overflow-hidden">
           <Image
-            src={item.image}
+            src={item.image_url}
             alt={item.name}
             width={600}
             height={400}
             className="object-cover w-full h-full transition-transform duration-300 hover:scale-105"
-            data-ai-hint={item['data-ai-hint']}
           />
         </div>
         <div className="p-4">

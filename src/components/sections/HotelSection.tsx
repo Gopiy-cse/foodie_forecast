@@ -2,9 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import HotelCard from '@/components/cards/HotelCard';
-import { hotels } from '@/lib/data';
+// import { hotels } from '@/lib/data';
 import type { Hotel } from '@/lib/data';
 import { Skeleton } from '@/components/ui/skeleton';
+import { getHotels } from '@/actions/hotels';
 
 interface HotelSectionProps {
   searchTerm: string;
@@ -12,7 +13,21 @@ interface HotelSectionProps {
 
 export default function HotelSection({ searchTerm }: HotelSectionProps) {
   const [filteredHotels, setFilteredHotels] = useState<Hotel[]>([]);
+  const [hotels, setHotels] = useState<Hotel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+
+  
+  useEffect(() => {
+    fetchHotels();
+    setTimeout(() => {
+        setIsLoading(false);
+    }, 300);
+  },[]);
+
+  const fetchHotels = async () => {
+    const hotels = await getHotels();
+    setFilteredHotels(hotels);
+  };
 
   useEffect(() => {
     setIsLoading(true);
@@ -23,8 +38,7 @@ export default function HotelSection({ searchTerm }: HotelSectionProps) {
     } else {
       const filtered = hotels.filter(hotel =>
         hotel.name.toLowerCase().includes(lowercasedFilter) ||
-        hotel.cuisine.toLowerCase().includes(lowercasedFilter) ||
-        hotel.menu.some(item => item.name.toLowerCase().includes(lowercasedFilter))
+        hotel.cuisine.toLowerCase().includes(lowercasedFilter)
       );
       setFilteredHotels(filtered);
     }
@@ -50,7 +64,7 @@ export default function HotelSection({ searchTerm }: HotelSectionProps) {
               </div>
             </div>
           ))
-        ) : filteredHotels.length > 0 ? (
+        ) : filteredHotels?.length > 0 ? (
           filteredHotels.map((hotel) => <HotelCard key={hotel.id} hotel={hotel} />)
         ) : (
           <div className="col-span-full text-center py-16">
