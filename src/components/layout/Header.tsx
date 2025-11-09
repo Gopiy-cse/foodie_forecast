@@ -15,14 +15,16 @@ export default function Header({ onCartClick }: HeaderProps) {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 max-w-7xl items-center justify-between">
+      <div className="container flex h-16 max-w-7xl items-center justify-start px-4">
         <Link href="/" className="flex items-center gap-2">
           <UtensilsCrossed className="h-7 w-7 text-primary" />
           <h1 className="text-2xl font-bold text-foreground">
             Foodie Forecast
           </h1>
         </Link>
-        <div className="flex items-center gap-2">
+      </div>
+      <div className="absolute right-3 top-4 justify-end">
+        <div className="flex items-end gap-2">
           <Link href="/admin">
             <Button variant="ghost" size="icon" aria-label="Admin Panel">
               <Settings className="h-6 w-6" />

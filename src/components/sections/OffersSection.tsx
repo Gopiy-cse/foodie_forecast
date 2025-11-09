@@ -33,7 +33,7 @@ export default function OffersSection() {
             {offers.map((offer, index) => (
               <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
                 <div className="p-1">
-                  <Card className="h-full bg-background shadow-md transform transition-transform duration-300 hover:scale-105">
+                  <Card className="h-full w-full bg-background shadow-md transform transition-transform duration-300 hover:scale-105">
                     <CardHeader>
                       <CardTitle className="flex items-center gap-2 text-primary">
                         <TicketPercent className="h-6 w-6" />
@@ -59,8 +59,6 @@ export default function OffersSection() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className="hidden sm:flex" />
-          <CarouselNext className="hidden sm:flex" />
         </Carousel>
       </div>
     </section>

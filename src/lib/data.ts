@@ -143,7 +143,7 @@ export const offers = [
   },
   {
     title: 'First Order Offer',
-    description: 'Flat $5 off on orders above $20.',
+    description: 'Flat $5 off on your first orders above $20.',
     code: 'NEW5',
   },
 ];
