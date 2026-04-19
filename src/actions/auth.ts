@@ -48,11 +48,42 @@ export async function signup(formData: FormData) {
     redirect('/')
 }
 
-
-
 export async function logout() {
     const supabase = await createClient()
     await supabase.auth.signOut()
     revalidatePath('/', 'layout')
     redirect('/login')
+}
+
+export async function verifyEmailOTP(email: string, otp: string): Promise<boolean> {
+    const supabase = await createClient();
+
+    const { error } = await supabase.auth.verifyOtp({
+        email,
+        token: otp,
+        type: 'signup' // Adjusted type to match Supabase's expected values
+    });
+
+    if (error) {
+        console.error('Failed to verify OTP:', error.message);
+        return false;
+    }
+
+    return true;
+}
+
+export async function resendEmailOTP(email: string): Promise<boolean> {
+    const supabase = await createClient();
+
+    const { error } = await supabase.auth.resend({
+        email,
+        type: 'signup' // Adjusted type to match Supabase's expected values
+    });
+
+    if (error) {
+        console.error('Failed to resend OTP:', error.message);
+        return false;
+    }
+
+    return true;
 }

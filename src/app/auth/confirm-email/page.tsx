@@ -5,11 +5,24 @@ import { Button } from '@/components/ui/button'
 import { Mail } from 'lucide-react'
 import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
+import { Suspense } from 'react'
 
-export default function ConfirmEmailPage() {
+function EmailContent() {
     const searchParams = useSearchParams()
     const email = searchParams.get('email')
 
+    return (
+        <>
+            {email && (
+                <Link href={`/auth/verify-email?email=${encodeURIComponent(email)}`} className="w-full block">
+                    <Button className="w-full">Verify Email</Button>
+                </Link>
+            )}
+        </>
+    )
+}
+
+export default function ConfirmEmailPage() {
     return (
         <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12 sm:px-6 lg:px-8">
             <Card className="w-full max-w-md">
@@ -35,18 +48,9 @@ export default function ConfirmEmailPage() {
                         </p>
                     </div>
                     <div className="pt-4 space-y-2">
-                        {email && (
-                            <Link href={`/auth/verify-email?email=${encodeURIComponent(email)}`} className="w-full block">
-                                <Button className="w-full">
-                                    Enter Verification Code
-                                </Button>
-                            </Link>
-                        )}
-                        <Link href="/login" className="w-full block">
-                            <Button variant="outline" className="w-full">
-                                Back to Login
-                            </Button>
-                        </Link>
+                        <Suspense fallback={<p className='text-center'>Loading...</p>}>
+                            <EmailContent />
+                        </Suspense>
                     </div>
                 </CardContent>
             </Card>
