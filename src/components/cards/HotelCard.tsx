@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ChevronRight } from 'lucide-react';
 import type { Hotel } from '@/lib/data';
@@ -9,28 +10,31 @@ interface HotelCardProps {
 }
 
 export default function HotelCard({ hotel }: HotelCardProps) {
+  const [imgSrc, setImgSrc] = useState(hotel.image_url);
+
   return (
     <Link href={`/hotel/${hotel.id}`} className="group">
-        <Card className="flex flex-col overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl h-full">
+      <Card className="flex flex-col overflow-hidden shadow-sm transition-all duration-300 hover:shadow-xl h-full">
         <CardHeader className="p-0">
-            <div className="aspect-video overflow-hidden">
+          <div className="aspect-video overflow-hidden bg-muted relative">
             <Image
-                src={hotel.image_url}
-                alt={hotel.name}
-                width={600}
-                height={400}
-                className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              src={imgSrc || "https://placehold.co/600x400?text=Foodie+Forecast"}
+              alt={hotel.name}
+              width={600}
+              height={400}
+              className="object-cover w-full h-full transition-transform duration-300 group-hover:scale-105"
+              onError={() => setImgSrc("https://placehold.co/600x400?text=No+Image")}
             />
-            </div>
+          </div>
         </CardHeader>
         <CardContent className="p-4 flex-grow flex justify-between items-start">
-            <div>
-                <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors">{hotel.name}</CardTitle>
-                <CardDescription>{hotel.cuisine}</CardDescription>
-            </div>
-            <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
+          <div>
+            <CardTitle className="text-xl font-semibold group-hover:text-primary transition-colors">{hotel.name}</CardTitle>
+            <CardDescription>{hotel.cuisine}</CardDescription>
+          </div>
+          <ChevronRight className="h-6 w-6 text-muted-foreground transition-transform duration-300 group-hover:translate-x-1 group-hover:text-primary" />
         </CardContent>
-        </Card>
+      </Card>
     </Link>
   );
 }

@@ -47,7 +47,7 @@ export default function CartSheet({ open, onOpenChange }: CartSheetProps) {
                     <div key={item.id} className="flex items-center gap-4">
                       <div className="relative h-20 w-20 shrink-0 overflow-hidden rounded-md">
                         <Image
-                          src={item.image}
+                          src={item.image_url}
                           alt={item.name}
                           fill
                           className="object-cover"
@@ -57,22 +57,22 @@ export default function CartSheet({ open, onOpenChange }: CartSheetProps) {
                         <h4 className="font-semibold">{item.name}</h4>
                         <p className="text-sm text-muted-foreground">${item.price.toFixed(2)}</p>
                         <div className="mt-2 flex items-center gap-2">
-                           <div className="flex items-center gap-1">
-                                <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => handleQuantityChange(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>
-                                    <Minus className="h-4 w-4" />
-                                </Button>
-                                <Input
-                                    type="number"
-                                    min="1"
-                                    value={item.quantity}
-                                    onChange={(e) => handleQuantityChange(item.id, e.target.value)}
-                                    className="h-8 w-14 border-x-0 text-center"
-                                    aria-label={`Quantity for ${item.name}`}
-                                />
-                                <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>
-                                    <Plus className="h-4 w-4" />
-                                </Button>
-                            </div>
+                          <div className="flex items-center gap-1">
+                            <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => handleQuantityChange(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>
+                              <Minus className="h-4 w-4" />
+                            </Button>
+                            <Input
+                              type="number"
+                              min="1"
+                              value={item.quantity}
+                              onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                              className="h-8 w-14 border-x-0 text-center"
+                              aria-label={`Quantity for ${item.name}`}
+                            />
+                            <Button variant="outline" size="icon" className="h-8 w-8" onClick={() => handleQuantityChange(item.id, item.quantity + 1)}>
+                              <Plus className="h-4 w-4" />
+                            </Button>
+                          </div>
                           <Button
                             variant="outline"
                             size="icon"
@@ -92,16 +92,16 @@ export default function CartSheet({ open, onOpenChange }: CartSheetProps) {
               <Separator />
               <SheetFooter className="p-6">
                 <div className="w-full space-y-4">
-                    <div className="flex justify-between font-bold text-lg">
-                        <span>Total</span>
-                        <span>${totalPrice.toFixed(2)}</span>
-                    </div>
-                    <Button className="w-full" size="lg" onClick={() => {
-                      onOpenChange(false);
-                      setIsCheckoutOpen(true);
-                    }}>
-                        Proceed to Checkout
-                    </Button>
+                  <div className="flex justify-between font-bold text-lg">
+                    <span>Total</span>
+                    <span>${totalPrice.toFixed(2)}</span>
+                  </div>
+                  <Button className="w-full" size="lg" onClick={() => {
+                    onOpenChange(false);
+                    setIsCheckoutOpen(true);
+                  }}>
+                    Proceed to Checkout
+                  </Button>
                 </div>
               </SheetFooter>
             </>

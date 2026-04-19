@@ -1,11 +1,12 @@
 "use server";
-import { supabase } from "@/lib/supabase";
+import { createClient } from "@/lib/supabase/server";
 import type { Hotel } from "@/lib/data";
 import type { MenuItem } from "@/hooks/use-cart";
 
 export const getHotels = async () => {
+    const supabase = await createClient();
     const { data, error } = await supabase.from("hotels")
-    .select(`id, name, cuisine, image_url, 
+        .select(`id, name, cuisine, image_url, 
         hotel_menus(
             menu_items(
                 id, name, price, rating, image_url, cuisine, category
@@ -15,13 +16,14 @@ export const getHotels = async () => {
 };
 
 export const getHotelById = async (id: string) => {
+    const supabase = await createClient();
     const { data, error } = await supabase.from("hotels")
-    .select(`id, name, cuisine, image_url, 
+        .select(`id, name, cuisine, image_url, 
         hotel_menus(
             menu_items(
                 id, name, price, rating, image_url, cuisine, category
             )
         )`)
-    .eq("id", id);
+        .eq("id", id);
     return data as Hotel[];
 };

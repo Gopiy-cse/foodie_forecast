@@ -96,7 +96,7 @@ export default function Hero({ searchTerm, onSearchTermChange }: HeroProps) {
   };
 
   return (
-    <section className="relative h-[40vh] w-full bg-cover bg-center" style={{ backgroundImage: "url('https://placehold.co/1920x1080.png')", backgroundAttachment: 'fixed' }} data-ai-hint="food platter">
+    <section className="relative h-[40vh] w-full bg-cover bg-center" style={{ backgroundImage: "url('https://pvnfloroioclvkxpncbr.supabase.co/storage/v1/object/public/images-hotel/hotels/front-cover.jpg')", backgroundAttachment: 'fixed' }} data-ai-hint="food platter">
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative z-10 flex h-full flex-col items-center justify-center text-center text-white">
         <h2 className="text-4xl font-bold md:text-6xl font-headline">Find Your Next Craving</h2>

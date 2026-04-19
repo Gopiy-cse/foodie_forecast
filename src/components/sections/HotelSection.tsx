@@ -16,23 +16,30 @@ export default function HotelSection({ searchTerm }: HotelSectionProps) {
   const [hotels, setHotels] = useState<Hotel[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  
+
   useEffect(() => {
-    fetchHotels();
-    setTimeout(() => {
+    const loadHotels = async () => {
+      setIsLoading(true);
+      try {
+        const data = await getHotels();
+        setHotels(data || []);
+      } catch (error) {
+        console.error("Failed to fetch hotels:", error);
+        setHotels([]);
+      } finally {
         setIsLoading(false);
-    }, 300);
-  },[]);
-
-  const fetchHotels = async () => {
-    const hotels = await getHotels();
-    setFilteredHotels(hotels);
-  };
+      }
+    };
+    loadHotels();
+  }, []);
 
   useEffect(() => {
-    setIsLoading(true);
+    if (hotels.length === 0 && !isLoading) {
+      setFilteredHotels([]);
+      return;
+    }
+
     const lowercasedFilter = searchTerm.toLowerCase();
-    
     if (!lowercasedFilter) {
       setFilteredHotels(hotels);
     } else {
@@ -42,13 +49,7 @@ export default function HotelSection({ searchTerm }: HotelSectionProps) {
       );
       setFilteredHotels(filtered);
     }
-    
-    // Simulate loading
-    setTimeout(() => {
-        setIsLoading(false);
-    }, 300);
-
-  }, [searchTerm]);
+  }, [searchTerm, hotels, isLoading]);
 
   return (
     <section id="hotels" className="py-12">
