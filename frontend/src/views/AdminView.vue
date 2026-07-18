@@ -282,7 +282,7 @@ import FoodItemForm from '../components/FoodItemForm.vue';
 import { 
   UtensilsCrossed, Home, PlusCircle, Edit, Trash2, 
   DollarSign, ShoppingBag, TrendingUp, Clock, X, Loader2 
-} from 'lucide-vue-next';
+} from '@lucide/vue';
 
 interface MenuItem {
   id: string;

@@ -58,7 +58,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { Search, Building, Utensils, Pizza } from 'lucide-vue-next';
+import { Search, Building, Utensils, Pizza } from '@lucide/vue';
 
 const props = defineProps<{
   modelValue: string;

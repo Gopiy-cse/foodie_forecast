@@ -60,7 +60,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { Sparkles, Loader2, Lightbulb } from 'lucide-vue-next';
+import { Sparkles, Loader2, Lightbulb } from '@lucide/vue';
 
 interface AIResult {
   suggestions: string[];

@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { Leaf, Drumstick, GlassWater, Cake } from 'lucide-vue-next';
+import { Leaf, Drumstick, GlassWater, Cake } from '@lucide/vue';
 
 const categories = [
   { name: 'Veg', icon: Leaf },

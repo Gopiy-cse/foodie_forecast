@@ -88,7 +88,7 @@
 import { ref } from 'vue';
 import { useCartStore } from '../store/cart';
 import { useAuthStore } from '../store/auth';
-import { Loader2, CheckCircle2, MapPin } from 'lucide-vue-next';
+import { Loader2, CheckCircle2, MapPin } from '@lucide/vue';
 
 const props = defineProps<{
   open: boolean;

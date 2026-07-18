@@ -27,7 +27,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { ChevronRight } from 'lucide-vue-next';
+import { ChevronRight } from '@lucide/vue';
 
 interface Hotel {
   id: string;

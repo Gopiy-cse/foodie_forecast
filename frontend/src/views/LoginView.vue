@@ -141,7 +141,7 @@
 import { ref, reactive } from 'vue';
 import { useRouter } from 'vue-router';
 import { supabase } from '../lib/supabase';
-import { AlertCircle, CheckCircle2, Loader2 } from 'lucide-vue-next';
+import { AlertCircle, CheckCircle2, Loader2 } from '@lucide/vue';
 
 const router = useRouter();
 const activeTab = ref<'login' | 'signup'>('login');

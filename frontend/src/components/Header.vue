@@ -90,7 +90,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted } from 'vue';
-import { ShoppingCart, UtensilsCrossed, Settings } from 'lucide-vue-next';
+import { ShoppingCart, UtensilsCrossed, Settings } from '@lucide/vue';
 import { useCartStore } from '../store/cart';
 import { useAuthStore } from '../store/auth';
 

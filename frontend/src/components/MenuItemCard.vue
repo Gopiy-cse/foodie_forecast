@@ -39,7 +39,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useCartStore, type MenuItem } from '../store/cart';
-import { Star, PlusCircle, CheckCircle2 } from 'lucide-vue-next';
+import { Star, PlusCircle, CheckCircle2 } from '@lucide/vue';
 
 const props = defineProps<{
   item: MenuItem;

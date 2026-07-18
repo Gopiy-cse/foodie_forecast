@@ -64,7 +64,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { Tag, TicketPercent, CalendarDays, Copy } from 'lucide-vue-next';
+import { Tag, TicketPercent, CalendarDays, Copy } from '@lucide/vue';
 
 interface Offer {
   id: string;

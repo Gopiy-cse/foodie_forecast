@@ -72,7 +72,7 @@
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { Loader2 } from 'lucide-vue-next';
+import { Loader2 } from '@lucide/vue';
 import Header from '../components/Header.vue';
 import MenuItemCard from '../components/MenuItemCard.vue';
 import CartSheet from '../components/CartSheet.vue';
