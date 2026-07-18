@@ -117,7 +117,7 @@
 import { useCartStore } from '../store/cart';
 import { X, Trash2, Plus, Minus, ShoppingBag } from '@lucide/vue';
 
-const props = defineProps<{
+defineProps<{
   open: boolean;
 }>();
 

@@ -81,7 +81,6 @@ interface Suggestion {
 }
 
 const hotels = ref<any[]>([]);
-const suggestions = ref<Suggestion[]>([]);
 const isSuggestionsVisible = ref(false);
 const searchContainerRef = ref<HTMLElement | null>(null);
 

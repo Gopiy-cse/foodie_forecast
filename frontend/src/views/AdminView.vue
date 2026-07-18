@@ -319,7 +319,11 @@ const editingItem = ref<MenuItem | null>(null);
 // Fetch admin menu items listing
 const fetchMenuItems = async () => {
   try {
-    const headers = await authStore.getAuthHeader();
+    const authHeaders = await authStore.getAuthHeader();
+    const headers: Record<string, string> = {};
+    if (authHeaders && 'Authorization' in authHeaders && authHeaders.Authorization) {
+      headers['Authorization'] = authHeaders.Authorization;
+    }
     const response = await fetch('http://localhost:5000/api/admin/menu-items', { headers });
     const data = await response.json();
     menuItems.value = data || [];
@@ -332,7 +336,11 @@ const fetchMenuItems = async () => {
 const fetchOrders = async () => {
   ordersLoading.value = true;
   try {
-    const headers = await authStore.getAuthHeader();
+    const authHeaders = await authStore.getAuthHeader();
+    const headers: Record<string, string> = {};
+    if (authHeaders && 'Authorization' in authHeaders && authHeaders.Authorization) {
+      headers['Authorization'] = authHeaders.Authorization;
+    }
     const response = await fetch('http://localhost:5000/api/admin/orders', { headers });
     const data = await response.json();
     orders.value = data || [];
@@ -368,15 +376,19 @@ const closeFormModal = () => {
 
 const handleFormSubmit = async (item: MenuItem) => {
   try {
-    const headers = await authStore.getAuthHeader();
+    const authHeaders = await authStore.getAuthHeader();
     const method = editingItem.value ? 'PUT' : 'POST';
+    
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    if (authHeaders && 'Authorization' in authHeaders && authHeaders.Authorization) {
+      headers['Authorization'] = authHeaders.Authorization;
+    }
     
     const response = await fetch('http://localhost:5000/api/admin/menu-items', {
       method,
-      headers: {
-        'Content-Type': 'application/json',
-        ...headers
-      },
+      headers,
       body: JSON.stringify(item),
     });
 
@@ -396,7 +408,11 @@ const handleFormSubmit = async (item: MenuItem) => {
 const handleDelete = async (id: string) => {
   if (!confirm('Are you sure you want to delete this item?')) return;
   try {
-    const headers = await authStore.getAuthHeader();
+    const authHeaders = await authStore.getAuthHeader();
+    const headers: Record<string, string> = {};
+    if (authHeaders && 'Authorization' in authHeaders && authHeaders.Authorization) {
+      headers['Authorization'] = authHeaders.Authorization;
+    }
     const response = await fetch(`http://localhost:5000/api/admin/menu-items/${id}`, {
       method: 'DELETE',
       headers
@@ -417,7 +433,11 @@ const handleDelete = async (id: string) => {
 const triggerMigrate = async () => {
   if (!confirm('This will seed the database with initial restaurant and menu data. Proceed?')) return;
   try {
-    const headers = await authStore.getAuthHeader();
+    const authHeaders = await authStore.getAuthHeader();
+    const headers: Record<string, string> = {};
+    if (authHeaders && 'Authorization' in authHeaders && authHeaders.Authorization) {
+      headers['Authorization'] = authHeaders.Authorization;
+    }
     const response = await fetch('http://localhost:5000/api/admin/migrate', {
       method: 'POST',
       headers

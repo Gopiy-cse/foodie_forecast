@@ -90,7 +90,7 @@ import { useCartStore } from '../store/cart';
 import { useAuthStore } from '../store/auth';
 import { Loader2, CheckCircle2, MapPin } from '@lucide/vue';
 
-const props = defineProps<{
+defineProps<{
   open: boolean;
 }>();
 
@@ -110,12 +110,17 @@ const handlePayment = async () => {
     const authHeaders = await authStore.getAuthHeader();
     
     // API server runs on port 5000
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+    
+    if (authHeaders && 'Authorization' in authHeaders && authHeaders.Authorization) {
+      headers['Authorization'] = authHeaders.Authorization;
+    }
+    
     const response = await fetch('http://localhost:5000/api/orders', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...authHeaders
-      },
+      headers,
       body: JSON.stringify({
         items: cartStore.cart.map((item) => ({
           id: item.id,

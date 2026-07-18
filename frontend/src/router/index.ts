@@ -41,7 +41,7 @@ const router = createRouter({
 });
 
 // Admin Route Guard
-router.beforeEach(async (to, from, next) => {
+router.beforeEach(async (to, _from, next) => {
   const authStore = useAuthStore();
   
   // Wait until auth state is initialized
